@@ -47,7 +47,9 @@ class SequencerProvider extends Component {
       }));
     }, deadline - this.context.currentTime);
   }
-
+  logButt(){
+    console.log('butt')
+  }
   togglePlay() {
     const { playing } = this.state;
     if (!playing) {
@@ -55,10 +57,10 @@ class SequencerProvider extends Component {
       this.setState((state) => ({
         playing: !state.playing,
         activeStep: -1
-      }));
-      this.clock.start();
-      this.tickEvent = this.clock.callbackAtTime(this.handleTick.bind(this), this.context.currentTime).repeat(0.125);
-      console.log(this.handleTick);
+      }), () => {
+        this.clock.start();
+        this.tickEvent = this.clock.callbackAtTime(this.handleTick.bind(this), this.context.currentTime).repeat(0.125);
+      });
     } else {
       // clearInterval(this.playInterval);
       this.clock.stop();
